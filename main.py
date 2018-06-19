@@ -79,16 +79,17 @@ def generate_graphviz_graph(entity_relations, verbose=True):
         graph.append('"{}" -> "{}" [ label="{}" ];'.format(er[0], er[2], er[1]))
     graph.append('}')
 
-    out_dot = tmp_folder + 'out.dot'
+    random_num = len(entity_relations)
+    out_dot = tmp_folder + str(random_num) +'_out.dot'
     with open(out_dot, 'w') as output_file:
         output_file.writelines(graph)
 
-    out_png = tmp_folder + 'out.png'
+    out_png = tmp_folder + str(random_num) +'_out.png'
     command = '{} -Tpng {} -o {}'.format(DOT_BIN_PATH, out_dot, out_png)
     debug_print('Executing command = {}'.format(command), verbose)
-    dot_process = Popen(command, stdout=stderr, shell=True)
-    dot_process.wait()
-    assert not dot_process.returncode, 'ERROR: Call to dot exited with a non-zero code status.'
+     # dot_process = Popen(command, stdout=stderr, shell=True)
+    # dot_process.wait()
+    # assert not dot_process.returncode, 'ERROR: Call to dot exited with a non-zero code status.'
     print('Wrote graph to {} and {}'.format(out_dot, out_png))
 
 
